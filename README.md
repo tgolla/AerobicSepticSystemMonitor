@@ -16,7 +16,7 @@ An an Aerobic Septic System, also referred to as an Aerobic Wastewater Treatment
 
 Adding air promotes the growth of organisms that break down the solids, which are put through a clarifier and chlorinated for disinfection which produces a cleaner, more environmentally friendly discharge. This cleaner discharge eliminates the need for a drainage field (leach field) allowing the system to be installed on a small property where a standard septic tank system would not have been possible. Ref: [Aerobic Septic Systems Explained | JT Septic Co | NE Oklahoma Septic Experts](https://jtsepticco.com/aerobic-septic-systems/)
 
-### Aerobic Septic System Monitor Components
+### Components
 
 The first and obvious thing you are going to need is an ESP32 board. I chose to go with a development board as they are easy to prototype with exposing all the pins along with a USB-UART bridge, reset- and boot-mode buttons, an LDO regulator and a micro-USB connector. I chose a ESP32-WROOM-32U. The U designates and external IPEX MHF4 antenna connector. While my aerobic septic control box (timers, alarms, etc.) is mounted on the house relatively close to the WiFi router many control boxes get mounted far from the house (100-200ft) at the aerobic tank.  An external antenna in the design made more sense since I was still dealing with a a reasonable distance from the router and a concreate wall.  Better safe, than sorry.
 
@@ -43,7 +43,7 @@ To power the ESP32 and added modules we will need a USB wall charger and cable. 
 | 1        | ESP32 Development Board  | [Amazon.com: HiLetgo 2pcs ESP32-DevKitC ESP32-WROOM-32U Core Board ESP32 ESP-32 ESP-WROOM-32U Development Board for Arduino : Electronics](https://www.amazon.com/dp/B09KLS2YB3?psc=1&ref=ppx_yo2ov_dt_b_product_details) |
 | 1        | Antenna                  | [Amazon.com: 2 x 8dBi WiFi RP-SMA Male Antenna 2.4GHz 5.8GHz Dual Band +2 x 15CM U.FL/IPEX to RP-SMA Female Pigtail Cable for Mini PCIe Card Wireless Routers, PC Desktop, Repeater, FPV UAV Drone and PS4 Build : Electronics](https://www.amazon.com/dp/B07R21LN5P?psc=1&ref=ppx_yo2ov_dt_b_product_details) |
 | 1        | Breakout Board           | [Amazon.com: naughtystarts for ESP32 Breakout Board 3.5mm / 0.14" Terminal GPIO Expansion Board for 0.9" / 1.0" Size ESP32 Module ESP-WROOM-32 ESP32-DevKitC (Pack of 2pcs) : Electronics](https://www.amazon.com/dp/B0BYS6THLF?psc=1&ref=ppx_yo2ov_dt_b_product_details) |
-| 4        | 220V Optocoupler Modules | [Amazon.com: JESSINIE 3Pcs 1Channel AC 220V Optocoupler Module 220V Voltage Detect 220V Optocoupler Isolation Microcontroller TTL Level 3V-5V : Industrial & Scientific](https://www.amazon.com/dp/B0C73GGKHX?psc=1&ref=ppx_yo2ov_dt_b_product_details) |
+| 4        | 220V Optocoupler Module  | [Amazon.com: JESSINIE 3Pcs 1Channel AC 220V Optocoupler Module 220V Voltage Detect 220V Optocoupler Isolation Microcontroller TTL Level 3V-5V : Industrial & Scientific](https://www.amazon.com/dp/B0C73GGKHX?psc=1&ref=ppx_yo2ov_dt_b_product_details) |
 | 1        | Current Sensor           | [3PCS Analog Current Meter Sensor Module AC 0~5A Ammeter Sensor Board Based on ZMCT103C for Arduino: Amazon.com: Industrial & Scientific](https://www.amazon.com/dp/B0B6CNC6MM?psc=1&ref=ppx_yo2ov_dt_b_product_details) Alternative Full 20 Amp Range Sensor [Gravity Analog Ac Current Sensor - SEN0211 (electromaker.io)](https://www.electromaker.io/shop/product/gravity-analog-ac-current-sensor) |
 | 1        | SD Card Reader           | [Amazon.com: HiLetgo 5pcs Micro SD TF Card Adater Reader Module 6Pin SPI Interface Driver Module with chip Level Conversion for Arduino UNO R3 MEGA 2560 Due : Electronics](https://www.amazon.com/dp/B07BJ2P6X6?psc=1&ref=ppx_yo2ov_dt_b_product_details) |
 | 1        | Real-Time Clock w/Memory | [Amazon.com: HiLetgo 5pcs DS3231 AT24C32 Clock Module Real Time Clock Module IIC RTC Module for Arduino Without Battery : Industrial & Scientific](https://www.amazon.com/dp/B00LX3V7F0?psc=1&ref=ppx_yo2ov_dt_b_product_details) Alternate Memory Module [EC Buying 5Pcs AT24C02 Module I2C IIC Interface EEPROM Memory Module Intelligent Car Accessories with Dupont Wire at Amazon.com](https://www.amazon.com/dp/B0C73CRV1G?ref=ppx_yo2ov_dt_b_product_details&th=1) |
@@ -52,6 +52,50 @@ To power the ESP32 and added modules we will need a USB wall charger and cable. 
 | 1        | 6' USB Cable             | [Amazon.com: AILKIN Micro USB Cable, 5-Pack 6ft High Speed Nylon Braided Android Charging Cables for Samsung Galaxy J8/J7/S7/S6/Edge/Note5, Sony, Motorola, HTC, LG Android Tablets and More USB to Micro USB Cords : Electronics](https://www.amazon.com/dp/B071H25C43?ref=ppx_yo2ov_dt_b_product_details&th=1) |
 
 ## Beta
+
+The beta chapter is a look at each of the different components that make up the Aerobic Septic System Monitor. Each section is an exercise in connecting and programming a component.  If you are new to the Arduino/ESP32 you will want to work through each section to gain a better understanding of each component attached to the ESP32. This chapter is optional and if you want to get directly to monitoring your aerobic septic system you can jump to "v1.0 The Basics".
+
+### Blink (ESP32)
+
+If you are new to the Arduino/ESP32 world, blink is the classic "Hello World!" program for the Arduino developer.  The exercise involves using the build-in LED on pin 13 of many Arduino boards or wiring to an LED to an one of the many digital pins with a 220 ohm ballast resistor to limit the current flow and loading a program, in the Arduino world know as a sketch that causes the LED to blink.  Note that pins 34 & 35 on the ESP32 are input only.  The following is a wiring example for attaching an LED.
+
+![Blink Schematic](.\images\Blink Schematic.png)
+
+I my case, I used the breakout board and an Ideal Lever Wire Connector to connect the LED and 220 ohm resistor without the need to solder.
+
+![Blink Photo](.\images\Blink Photo.jpg)
+
+The blink sketch is includes in this project in the folder labeled blink.  You will need edit the code >>>>>>>>     In my case I used pin 4. If you are new to programming an Arduino/ESP32 I recommend starting by reading "[Getting Started with Arduino IDE 2](https://docs.arduino.cc/software/ide-v2/tutorials/getting-started-ide-v2/)". You can also search the internet for "Arduino blink" or "programming the Arduino" to find a great deal of articles and tutorials.
+
+### Beyond Blink (ESP32)
+
+Beyond Blink is an exercise to look at the simplicity and power the ESP32 has when it comes to connecting to your Wi-Fi network and the Internet. The code was puled from the >>>>>> and demonstrated how to connect your ESP32 to a Wi-Fi network hosing a web page that presents a button that can be used to turn the LED on and off.
+
+This exercise uses the same wired LED from the Blink exercise. You will again need to edit the code >>>>>. You will also need to edit the header file   xxxxx. h  
+
+### Is the Power On (220V Optocoupler Module)
+
+
+
+### Is the Pump Running (Current Sensor)
+
+
+
+### Where is my Data (SD Card Reader)
+
+
+
+### What Time is it? (RTS DS3231)
+
+
+
+### Don't Let me Forget (AT24C32)
+
+
+
+### Show me (OLED Display)
+
+
 
 *** This project is a work in progress. Please click the "Watch" button so you get notification on issues, discussions and pull request in GitHub. If you find a bug, please open an issue. If you have a question or comment please start a discussion. If you like what you see click the "Star" button. And please return in the future to see our progress.* 
 
