@@ -43,9 +43,7 @@ void loop() {
 }
 
 void print_GPIO_Status(int gpio){
-  Serial.print("GPI");
-  if (gpio < 10)
-    {Serial.print("O");}
+  Serial.print("GPIO ");
   Serial.print(gpio);
   Serial.print(" Status: ");
   if (digitalRead(gpio))
