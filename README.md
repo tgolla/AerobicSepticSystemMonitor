@@ -65,11 +65,11 @@ I my case, I used the breakout board and an Ideal Lever Wire Connector to connec
 
 ![Blink Photo](.\images\Blink Photo.jpg)
 
-The blink sketch is includes in this project in the folder labeled blink.  You will need edit the code >>>>>>>>     In my case I used pin 4. If you are new to programming an Arduino/ESP32 I recommend starting by reading "[Getting Started with Arduino IDE 2](https://docs.arduino.cc/software/ide-v2/tutorials/getting-started-ide-v2/)". You can also search the internet for "Arduino blink" or "programming the Arduino" to find a great deal of articles and tutorials.
+The blink sketch is includes in this project in the folder labeled blink.  With the ESP32 Development Board I chose there is no built in LED so I had to manually redefine the LED_BUILTIN constant in the code. In my case I used pin 4. If you are new to programming an Arduino/ESP32 I recommend starting by reading "[Getting Started with Arduino IDE 2](https://docs.arduino.cc/software/ide-v2/tutorials/getting-started-ide-v2/)". You can also search the internet for "Arduino blink" or "programming the Arduino" to find a great deal of articles and tutorials.
 
 ### Beyond Blink (ESP32)
 
-Beyond Blink is an exercise to look at the simplicity and power the ESP32 has when it comes to connecting to your Wi-Fi network and the Internet. The code was puled from the >>>>>> and demonstrated how to connect your ESP32 to a Wi-Fi network hosing a web page that presents a button that can be used to turn the LED on and off.
+Beyond Blink is an exercise to look at the simplicity and power the ESP32 has when it comes to connecting to your Wi-Fi network and the Internet. The code was adapted from the [Last Minute Engineers - Learn Electronics the Easy Way](https://lastminuteengineers.com/) article [In-depth: Create A Simple ESP32 Web Server In Arduino IDE (lastminuteengineers.com)](https://lastminuteengineers.com/creating-esp32-web-server-arduino-ide/) and demonstrated how to connect your ESP32 to a Wi-Fi network hosing a web page that presents a button that can be used to turn the LED on and off.
 
 This exercise uses the same wired LED from the Blink exercise. You will again need to edit the code >>>>>. You will also need to edit the header file   xxxxx. h  
 
