@@ -71,7 +71,7 @@ The blink sketch is includes in this project in the folder labeled blink.  With 
 
 Beyond Blink is an exercise to look at the simplicity and power the ESP32 has when it comes to connecting to your Wi-Fi network and the Internet. The code was adapted from the [Last Minute Engineers - Learn Electronics the Easy Way](https://lastminuteengineers.com/) article [In-depth: Create A Simple ESP32 Web Server In Arduino IDE (lastminuteengineers.com)](https://lastminuteengineers.com/creating-esp32-web-server-arduino-ide/) and demonstrated how to connect your ESP32 to a Wi-Fi network hosing a web page that presents a button that can be used to turn the LED on and off.
 
-This exercise uses the same wired LED from the Blink exercise. You will again need to edit the code >>>>>. You will also need to edit the header file   xxxxx. h  
+This exercise uses the same wired LED from the Blink exercise. You will again need to edit the code to modify LED_BUILTIN if you are using a pin other than 4 for the LED. You will also need to edit the configuration.h header file to add your Wi-Fi SSID and password.
 
 ### Is the Power On (220V Optocoupler Module)
 
