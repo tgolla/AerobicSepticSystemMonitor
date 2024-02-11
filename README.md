@@ -43,7 +43,7 @@ To power the ESP32 and added modules we will need a USB wall charger and cable. 
 | 1        | ESP32 Development Board  | [Amazon.com: HiLetgo 2pcs ESP32-DevKitC ESP32-WROOM-32U Core Board ESP32 ESP-32 ESP-WROOM-32U Development Board for Arduino : Electronics](https://www.amazon.com/dp/B09KLS2YB3?psc=1&ref=ppx_yo2ov_dt_b_product_details) |
 | 1        | Antenna                  | [Amazon.com: 2 x 8dBi WiFi RP-SMA Male Antenna 2.4GHz 5.8GHz Dual Band +2 x 15CM U.FL/IPEX to RP-SMA Female Pigtail Cable for Mini PCIe Card Wireless Routers, PC Desktop, Repeater, FPV UAV Drone and PS4 Build : Electronics](https://www.amazon.com/dp/B07R21LN5P?psc=1&ref=ppx_yo2ov_dt_b_product_details) |
 | 1        | Breakout Board           | [Amazon.com: naughtystarts for ESP32 Breakout Board 3.5mm / 0.14" Terminal GPIO Expansion Board for 0.9" / 1.0" Size ESP32 Module ESP-WROOM-32 ESP32-DevKitC (Pack of 2pcs) : Electronics](https://www.amazon.com/dp/B0BYS6THLF?psc=1&ref=ppx_yo2ov_dt_b_product_details) |
-| 4        | 220V Optocoupler Module  | [Amazon.com: JESSINIE 3Pcs 1Channel AC 220V Optocoupler Module 220V Voltage Detect 220V Optocoupler Isolation Microcontroller TTL Level 3V-5V : Industrial & Scientific](https://www.amazon.com/dp/B0C73GGKHX?psc=1&ref=ppx_yo2ov_dt_b_product_details) |
+| 4        | 220V Optocoupler Module  | [Amazon.com: JESSINIE 3Pcs 1Channel AC 220V Optocoupler Module 220V Voltage Detect 220V Optocoupler Isolation Microcontroller TTL Level 3V-5V : Industrial & Scientific](https://www.amazon.com/dp/B0C73GGKHX?psc=1&ref=ppx_yo2ov_dt_b_product_details) or [HiLetgo AC 220V Optocoupler Module AC Optocoupler Alternating Current Detect Module 3-5V or PLC 24V Level Power for PLC MCU(1 Channel): Amazon.com: Industrial & Scientific](https://www.amazon.com/HiLetgo-Optocoupler-Alternating-Current-Channel/dp/B0CHJLYY3D/ref=sr_1_4?crid=3NMY4ZOHAL63&keywords=220V%2BOptocoupler%2BModule&qid=1707616569&s=industrial&sprefix=220v%2Boptocoupler%2Bmodule%2Cindustrial%2C115&sr=1-4&th=1) |
 | 1        | Current Sensor           | [3PCS Analog Current Meter Sensor Module AC 0~5A Ammeter Sensor Board Based on ZMCT103C for Arduino: Amazon.com: Industrial & Scientific](https://www.amazon.com/dp/B0B6CNC6MM?psc=1&ref=ppx_yo2ov_dt_b_product_details) Alternative Full 20 Amp Range Sensor [Gravity Analog Ac Current Sensor - SEN0211 (electromaker.io)](https://www.electromaker.io/shop/product/gravity-analog-ac-current-sensor) |
 | 1        | SD Card Reader           | [Amazon.com: HiLetgo 5pcs Micro SD TF Card Adater Reader Module 6Pin SPI Interface Driver Module with chip Level Conversion for Arduino UNO R3 MEGA 2560 Due : Electronics](https://www.amazon.com/dp/B07BJ2P6X6?psc=1&ref=ppx_yo2ov_dt_b_product_details) |
 | 1        | Real-Time Clock w/Memory | [Amazon.com: HiLetgo 5pcs DS3231 AT24C32 Clock Module Real Time Clock Module IIC RTC Module for Arduino Without Battery : Industrial & Scientific](https://www.amazon.com/dp/B00LX3V7F0?psc=1&ref=ppx_yo2ov_dt_b_product_details) Alternate Memory Module [EC Buying 5Pcs AT24C02 Module I2C IIC Interface EEPROM Memory Module Intelligent Car Accessories with Dupont Wire at Amazon.com](https://www.amazon.com/dp/B0C73CRV1G?ref=ppx_yo2ov_dt_b_product_details&th=1) |
@@ -57,7 +57,7 @@ The beta chapter is a look at each of the different components that make up the 
 
 ### Blink (ESP32)
 
-If you are new to the Arduino/ESP32 world, blink is the classic "Hello World!" program for the Arduino developer.  The exercise involves using the build-in LED on pin 13 of many Arduino boards or wiring to an LED to an one of the many digital pins with a 220 ohm ballast resistor to limit the current flow and loading a program, in the Arduino world know as a sketch that causes the LED to blink.  Note that pins 34 & 35 on the ESP32 are input only.  The following is a wiring example for attaching an LED.
+If you are new to the Arduino/ESP32 world, blink is the classic "Hello World!" program for the Arduino developer.  This exercise involves using the build-in LED on pin 13 of many Arduino boards or wiring to an LED to an one of the many digital pins with a 220 ohm ballast resistor to limit the current flow and loading a program, in the Arduino world know as a sketch that causes the LED to blink.  Note that pins 34 & 35 on the ESP32 are input only.  The following is a wiring example for attaching an LED.
 
 ![Blink Schematic](.\images\Blink Schematic.png)
 
@@ -75,7 +75,13 @@ This exercise uses the same wired LED from the Blink exercise. You will again ne
 
 ### Is the Power On (220V Optocoupler Module)
 
+As part of this project we need to be able to see if the power is on. In particular, we want to monitor the pump timer, the air compressor pump timer, the high water alarm and the air compressor alarm. To do this we will use a simple optocoupler module which can be connected to the hot 120V lead (L) of any of the items I previously listed and common (N) on one side of the module. On the other side we connect the module to 3.3 voltage (VCC ), ground (GND) and one of the GPOI pins of the ESP32 (OUT). Below is a diagram for a test circuit. 
 
+(image)
+
+The code can be found in the "IsThePowerOn" folder and is extremely simplistic. Basically when power is sensed the LED we wired in the previous exercises in turned on and a message is sent to the serial port.  As before you will need to change the LED_BUILTIN constant if you use a pin other than GPIO 4.  You will also need to change the PowerOnOptocouplerModule constant if you us a GPIO pin other than 34.
+
+(image) 
 
 ### Is the Pump Running (Current Sensor)
 
