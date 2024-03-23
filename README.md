@@ -75,13 +75,15 @@ This exercise uses the same wired LED from the Blink exercise. You will again ne
 
 ### Is the Power On (220V Optocoupler Module)
 
-As part of this project we need to be able to see if the power is on. In particular, we want to monitor the pump timer, the air compressor pump timer, the high water alarm and the air compressor alarm. To do this we will use a simple optocoupler module which can be connected to the hot 120V lead (L) of any of the items I previously listed and common (N) on one side of the module. On the other side we connect the module to 3.3 voltage (VCC ), ground (GND) and one of the GPOI pins of the ESP32 (OUT). Below is a diagram for a test circuit. 
+As part of this project we need to be able to see if the power is on. In particular, we want to monitor the pump timer, the air compressor pump timer, the high water alarm and the air compressor alarm. To do this we will use a simple optocoupler module which can be connected to the hot 120V lead ('L' for load, typically a black wire) of any of the items I previously listed and common ('N' for neutral, typically a white wire) on one side of the module. On the other side we connect the module to 3.3 voltage (VCC - positive voltage), ground (GND - ground, negative) and one of the GPOI (General-Purpose Input-Output) pins of the ESP32 (OUT - signal). Below is a diagram for a test circuit. 
 
-(image)
+(circuit diagram here)
 
-The code can be found in the "IsThePowerOn" folder and is extremely simplistic. Basically when power is sensed the LED we wired in the previous exercises in turned on and a message is sent to the serial port.  As before you will need to change the LED_BUILTIN constant if you use a pin other than GPIO 4.  You will also need to change the PowerOnOptocouplerModule constant if you us a GPIO pin other than 34.
+The following is a photo of the AC circuit test board I built for testing. When plugged in and the the switch is on, the plug has power and the optocoupler module (green PCB (Printed Circuit Board), far right) will sense voltage. In the next module we will discuss the current sensor (blue PCB, bottom).
 
-(image) 
+ ![](.\images\AC Test Circuit.jpg)
+
+The code can be found in the "IsThePowerOn" folder and is extremely simplistic. Basically when power is sensed the LED we wired in the previous exercises is turned on and a message is sent to the serial port.  As before you will need to change the LED_BUILTIN constant if you use a pin other than GPIO 4.  You will also need to change the POWER_ON_OPTOCOUPLER_MODULE constant if you us a GPIO pin other than 34.
 
 ### Is the Pump Running (Current Sensor)
 
