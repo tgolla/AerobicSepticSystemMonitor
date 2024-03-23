@@ -51,13 +51,17 @@ To power the ESP32 and added modules we will need a USB wall charger and cable. 
 | 1        | USB Wall Charger         | [Amazon.com: (3 Pack) USB C Wall Charger, Dual Port PD Power Adapter Fast Charging Block for iPhone 15/15 Pro/15 Pro Max/15 Plus/14/13/12/11,X, Pad, Google Pixel, Samsung Galaxy and More : Cell Phones & Accessories](https://www.amazon.com/dp/B0BDWYL28S?ref=ppx_yo2ov_dt_b_product_details&th=1) |
 | 1        | 6' USB Cable             | [Amazon.com: AILKIN Micro USB Cable, 5-Pack 6ft High Speed Nylon Braided Android Charging Cables for Samsung Galaxy J8/J7/S7/S6/Edge/Note5, Sony, Motorola, HTC, LG Android Tablets and More USB to Micro USB Cords : Electronics](https://www.amazon.com/dp/B071H25C43?ref=ppx_yo2ov_dt_b_product_details&th=1) |
 
+### Visual Studio Code
+
+While the [Arduino IDE 2](https://docs.arduino.cc/software/ide-v2/tutorials/getting-started-ide-v2/) has come a long way from what is now referred to as the Arduino Legacy IDE or Arduino IDE 1, a lot of developers including myself prefer to use VS Code, short for [Visual Studio Code](https://code.visualstudio.com/). VS Code is an extremely versatile editor that through the implementation of extensions can work across multiple languages and platforms. To use VS code you will need to install the [Arduino](https://marketplace.visualstudio.com/items?itemName=vsciot-vscode.vscode-arduino) extension. You might also want to look at the [PlatformIO IDE for VS Code](https://platformio.org/) extension.
+
 ## Beta
 
 The beta chapter is a look at each of the different components that make up the Aerobic Septic System Monitor. Each section is an exercise in connecting and programming a component.  If you are new to the Arduino/ESP32 you will want to work through each section to gain a better understanding of each component attached to the ESP32. This chapter is optional and if you want to get directly to monitoring your aerobic septic system you can jump to "v1.0 The Basics".
 
 ### Blink (ESP32)
 
-If you are new to the Arduino/ESP32 world, blink is the classic "Hello World!" program for the Arduino developer.  This exercise involves using the build-in LED on pin 13 of many Arduino boards or wiring to an LED to an one of the many digital pins with a 220 ohm ballast resistor to limit the current flow and loading a program, in the Arduino world know as a sketch that causes the LED to blink.  Note that pins 34 & 35 on the ESP32 are input only.  The following is a wiring example for attaching an LED.
+If you are new to the Arduino/ESP32 world, blink is the classic "Hello World!" program for the Arduino developer.  This exercise involves using the build-in LED on pin 13 of many Arduino boards or wiring to an LED to an one of the many digital pins with a 220 ohm ballast resistor to limit the current flow. Then loading a program, in the Arduino world know as a sketch that causes the LED to blink. The following is a wiring example for attaching an LED.
 
 ![Blink Schematic](.\images\Blink Schematic.png)
 
@@ -65,25 +69,27 @@ I my case, I used the breakout board and an Ideal Lever Wire Connector to connec
 
 ![Blink Photo](.\images\Blink Photo.jpg)
 
-The blink sketch is includes in this project in the folder labeled blink.  With the ESP32 Development Board I chose there is no built in LED so I had to manually redefine the LED_BUILTIN constant in the code. In my case I used pin 4. If you are new to programming an Arduino/ESP32 I recommend starting by reading "[Getting Started with Arduino IDE 2](https://docs.arduino.cc/software/ide-v2/tutorials/getting-started-ide-v2/)". You can also search the internet for "Arduino blink" or "programming the Arduino" to find a great deal of articles and tutorials.
+The blink sketch is includes in this project in the folder labeled ```\Blink```.  With the ESP32 Development Board I chose there is no built in LED so I had to manually redefine the LED_BUILTIN constant in the code. In my case I used pin 4. If you are new to programming an Arduino/ESP32 I recommend starting by reading "[Getting Started with Arduino IDE 2](https://docs.arduino.cc/software/ide-v2/tutorials/getting-started-ide-v2/)". You can also search the internet for "Arduino blink" or "programming the Arduino" to find a great deal of articles and tutorials.
 
 ### Beyond Blink (ESP32)
 
 Beyond Blink is an exercise to look at the simplicity and power the ESP32 has when it comes to connecting to your Wi-Fi network and the Internet. The code was adapted from the [Last Minute Engineers - Learn Electronics the Easy Way](https://lastminuteengineers.com/) article [In-depth: Create A Simple ESP32 Web Server In Arduino IDE (lastminuteengineers.com)](https://lastminuteengineers.com/creating-esp32-web-server-arduino-ide/) and demonstrated how to connect your ESP32 to a Wi-Fi network hosing a web page that presents a button that can be used to turn the LED on and off.
 
-This exercise uses the same wired LED from the Blink exercise. You will again need to edit the code to modify LED_BUILTIN if you are using a pin other than 4 for the LED. You will also need to edit the configuration.h header file to add your Wi-Fi SSID and password.
+This exercise uses the same wired LED from the Blink exercise. You will again need to edit the code to modify LED_BUILTIN if you are using a pin other than 4 for the LED. You will also need to edit the ```configuration.h``` header file to add your Wi-Fi SSID and password. The code can be found in the ```\BeyondBlink``` folder.
 
 ### Is the Power On (220V Optocoupler Module)
 
-As part of this project we need to be able to see if the power is on. In particular, we want to monitor the pump timer, the air compressor pump timer, the high water alarm and the air compressor alarm. To do this we will use a simple optocoupler module which can be connected to the hot 120V lead ('L' for load, typically a black wire) of any of the items I previously listed and common ('N' for neutral, typically a white wire) on one side of the module. On the other side we connect the module to 3.3 voltage (VCC - positive voltage), ground (GND - ground, negative) and one of the GPOI (General-Purpose Input-Output) pins of the ESP32 (OUT - signal). Below is a diagram for a test circuit. 
+As part of this project we need to be able to see if the power is on. In particular, we want to monitor the pump timer, the air compressor pump timer, the high water alarm and the air compressor alarm. To do this we will use a simple optocoupler module which can be connected to the hot 120V lead ('L' for load, typically a black wire) of any of the items I previously listed and common ('N' for neutral, typically a white wire) on one side of the module. On the other side we connect the module to 3.3 voltage (VCC - positive voltage), ground (GND - ground, negative) and one of the GPOI (General-Purpose Input-Output) pins of the ESP32 (OUT - signal). You can learn more about the ESP32 GPOI pins at [ESP32 Pinout Reference: Which GPIO pins should you use? | Random Nerd Tutorials](https://randomnerdtutorials.com/esp32-pinout-reference-gpios/). Below is a diagram for a test circuit. 
 
-(circuit diagram here)
+![Is the Power On Schematic](.\images\Is the Power On Schematic.png)
 
-The following is a photo of the AC circuit test board I built for testing. When plugged in and the the switch is on, the plug has power and the optocoupler module (green PCB (Printed Circuit Board), far right) will sense voltage. In the next module we will discuss the current sensor (blue PCB, bottom).
+The following is a photo of the AC circuit test board I built for testing based on the test circuit above. When plugged in and the the switch is on, the plug has power and the optocoupler module (green PCB (Printed Circuit Board), far right) will sense voltage. In the next module we will discuss the current sensor (blue PCB, bottom).
 
  ![](.\images\AC Test Circuit.jpg)
 
-The code can be found in the "IsThePowerOn" folder and is extremely simplistic. Basically when power is sensed the LED we wired in the previous exercises is turned on and a message is sent to the serial port.  As before you will need to change the LED_BUILTIN constant if you use a pin other than GPIO 4.  You will also need to change the POWER_ON_OPTOCOUPLER_MODULE constant if you us a GPIO pin other than 34.
+The code can be found in the ```\IsThePowerOn``` folder and is extremely simplistic. Basically when power is sensed the LED we wired in the previous exercises is turned on and a message is sent to the serial port.  As before you will need to change the ```LED_BUILTIN``` constant if you use a pin other than GPIO 4.  You will also need to change the ```POWER_ON_OPTOCOUPLER_MODULE``` constant if you us a GPIO pin other than 34. In the photo below VCC on the optocoupler is wired to 3V3, OUT to GPIO pin 43 and GND to GND on the development breakout board.
+
+![Is The Power On Wiring](.\images\Is The Power On Wiring.jpg)
 
 ### Is the Pump Running (Current Sensor)
 
