@@ -111,7 +111,7 @@ For this reason I've chosen to use a current sensor. A current sensor will tell 
 
 ![Current Sensor ZMCT103C LM358 Schematic](.\images\Current Sensor ZMCT103C LM358 Schematic.png)
 
-<img src=".\images\Current Sensor ZMCT103C LM358 PCB.png" alt="Current Sensor ZMCT103C LM358 PCB" style="zoom:245%;" /> <img src=".\images\Current Sensor ZMCT103C LM358 .jpg" alt="Current Sensor ZMCT103C LM358" style="zoom:45%;" />
+<img src=".\images\Current Sensor ZMCT103C LM358 PCB.png" alt="Current Sensor ZMCT103C LM358 PCB" style="zoom:190%;" /> <img src=".\images\Current Sensor ZMCT103C LM358.jpg" alt="Current Sensor ZMCT103C LM358" style="zoom:35%;" />
 
 | Name     | Designator  | Footprint                      | Quantity |
 | -------- | ----------- | ------------------------------ | -------- |
