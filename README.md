@@ -84,20 +84,20 @@ This exercise uses the same wired LED from the Blink exercise. You will again ne
 
 As part of this project I need to be able to see if the power is on. In particular, I want to monitor the pump timer, the air compressor pump timer, the high water alarm and the air compressor alarm.
 
- [![AC 220V Optocoupler Module](.\images\AC 220V Optocoupler Module.jpg)](https://www.amazon.com/HiLetgo-Optocoupler-Alternating-Current-Channel/dp/B0CHJLYY3D/ref=sr_1_4?crid=3NMY4ZOHAL63&keywords=220V%2BOptocoupler%2BModule&qid=1707616569&s=industrial&sprefix=220v%2Boptocoupler%2Bmodule%2Cindustrial%2C115&sr=1-4&th=1)
+ [![AC 220V Optocoupler Module](.\images\AC220VOptocouplerModule.jpg)](https://www.amazon.com/HiLetgo-Optocoupler-Alternating-Current-Channel/dp/B0CHJLYY3D/ref=sr_1_4?crid=3NMY4ZOHAL63&keywords=220V%2BOptocoupler%2BModule&qid=1707616569&s=industrial&sprefix=220v%2Boptocoupler%2Bmodule%2Cindustrial%2C115&sr=1-4&th=1)
 
-![AC 220V Optocoupler Module Schematic](.\images\AC 220V Optocoupler Module Schematic.png)
+![AC 220V Optocoupler Module Schematic](.\images\AC220VOptocouplerModuleSchematic.png)
 To do this I will use a simple [220V optocoupler module](https://www.amazon.com/HiLetgo-Optocoupler-Alternating-Current-Channel/dp/B0CHJLYY3D/ref=sr_1_4?crid=3NMY4ZOHAL63&keywords=220V%2BOptocoupler%2BModule&qid=1707616569&s=industrial&sprefix=220v%2Boptocoupler%2Bmodule%2Cindustrial%2C115&sr=1-4&th=1) (pictured above) which can be connected to the hot 120V lead ('L' for load, typically a black wire) of any of the items I previously listed and common ('N' for neutral, typically a white wire) on one side of the module. On the other side I connect the module to 3.3 voltage (VCC - positive voltage), ground (GND - ground, negative) and one of the GPOI (General-Purpose Input-Output) pins of the ESP32 (OUT - signal). You can learn more about the ESP32 GPOI pins at [ESP32 Pinout Reference: Which GPIO pins should you use? | Random Nerd Tutorials](https://randomnerdtutorials.com/esp32-pinout-reference-gpios/). Below is a diagram for a test circuit. 
 
-![Is the Power On Schematic](.\images\Is the Power On Schematic.png)
+![Is the Power On Schematic](.\images\IsThePowerOnSchematic.png)
 
 The following is a photo of the AC circuit test board I built for testing based on the test circuit above. When plugged in and the the switch is on, the plug has power and the optocoupler module (green PCB (Printed Circuit Board), far right) will sense voltage. In the next module I will discuss the current sensor (blue PCB, bottom).
 
- ![](.\images\AC Test Circuit.jpg)
+ ![](.\images\ACTestCircuit.jpg)
 
 The code can be found in the ```\IsThePowerOn``` folder and is extremely simplistic. Basically when power is sensed the LED I wired in the previous exercises is turned on and a message is sent to the serial port.  As before you will need to change the ```LED_BUILTIN``` constant if you use a pin other than GPIO 4.  You will also need to change the ```POWER_ON_OPTOCOUPLER_MODULE``` constant if you us a GPIO pin other than 34. In the photo below VCC on the optocoupler is wired to 3V3, OUT to GPIO pin 34 and GND to GND on the development breakout board.
 
-![Is The Power On Wiring](.\images\Is The Power On Wiring.jpg)
+![Is The Power On Wiring](.\images\IsThePowerOnWiring.jpg)
 
 ### Is the Pump Running (Current Sensor)
 
@@ -111,7 +111,7 @@ Using a current sensor that can be easily clipped around the power lead leaving 
 
 The DFRobot current sensor is easy to clip on to a wire, connect to the ESP32 and the example code was easy to implement with only one hitch discovering that the ESP32 12 bit analog requires you divide by 4096 verses 1024. In the photo below the sensor is connect with the positive lead (+) connected to the ESP32 3.3V (3V3), the negative lead (-) to ground (GND), the signal (A) connected to GPIO pin 35 and the AC transformer probe clipped on to one power lead.
 
-![Is The Pump Running](.\images\Is The Pump Running.jpg)
+![Is The Pump Running](.\images\IsThePumpRunning.jpg)
 
 The code can be found in the ```\IsThePumpRunning``` folder and is based off of the vendors example code. The LED will blink to indicate activity and the amperage will be displayed on the serial port about once every second. As before you will need to change the ```LED_BUILTIN``` constant if you use a pin other than GPIO 4.  You will also need to change the ```AC_CURRENT_SENSOR``` constant if you us a GPIO pin other than 35.
 
