@@ -70,7 +70,7 @@ If you are new to the Arduino/ESP32 world, blink is the classic "Hello World!" p
 
 I my case, I used the breakout board and an Ideal Lever Wire Connector to connect the LED and 220 ohm resistor without the need to solder.
 
-![Blink Photo](.\images\Blink Photo.jpg)
+![Blink Photo](.\images\BlinkPhoto.jpg)
 
 The blink sketch is includes in this project in the folder labeled ```\Blink```.  With the ESP32 Development Board I chose there is no built in LED so I had to manually redefine the LED_BUILTIN constant in the code. In my case I used pin 4. If you are new to programming an Arduino/ESP32 I recommend starting by reading "[Getting Started with Arduino IDE 2](https://docs.arduino.cc/software/ide-v2/tutorials/getting-started-ide-v2/)". You can also search the internet for "Arduino blink" or "programming the Arduino" to find a great deal of articles and tutorials.
 
