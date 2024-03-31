@@ -66,7 +66,7 @@ The beta testing chapter is a look at each of the different components that make
 
 If you are new to the Arduino/ESP32 world, blink is the classic "Hello World!" program for the Arduino developer.  This exercise involves using the build-in LED on pin 13 of many Arduino boards or wiring to an LED to an one of the many digital pins with a 220 ohm ballast resistor to limit the current flow. Then loading a program, in the Arduino world know as a sketch that causes the LED to blink. The following is a wiring example for attaching an LED.
 
-![Blink Schematic](./images/Blink Schematic.png)
+![Blink Schematic](./images/BlinkSchematic.png)
 
 I my case, I used the breakout board and an Ideal Lever Wire Connector to connect the LED and 220 ohm resistor without the need to solder.
 
