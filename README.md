@@ -45,8 +45,10 @@ To power the ESP32 and added modules I will need a USB wall charger and cable. T
 | 1        | Breakout Board                                               | [Amazon.com: naughtystarts for ESP32 Breakout Board 3.5mm / 0.14" Terminal GPIO Expansion Board for 0.9" / 1.0" Size ESP32 Module ESP-WROOM-32 ESP32-DevKitC (Pack of 2pcs) : Electronics](https://www.amazon.com/dp/B0BYS6THLF?psc=1&ref=ppx_yo2ov_dt_b_product_details) |
 | 4        | 220V Optocoupler Module                                      | [HiLetgo AC 220V Optocoupler Module AC Optocoupler Alternating Current Detect Module 3-5V or PLC 24V Level Power for PLC MCU(1 Channel): Amazon.com: Industrial & Scientific](https://www.amazon.com/HiLetgo-Optocoupler-Alternating-Current-Channel/dp/B0CHJLYY3D/ref=sr_1_4?crid=3NMY4ZOHAL63&keywords=220V%2BOptocoupler%2BModule&qid=1707616569&s=industrial&sprefix=220v%2Boptocoupler%2Bmodule%2Cindustrial%2C115&sr=1-4&th=1)<br />[Amazon.com: JESSINIE 3Pcs 1Channel AC 220V Optocoupler Module 220V Voltage Detect 220V Optocoupler Isolation Microcontroller TTL Level 3V-5V : Industrial & Scientific](https://www.amazon.com/dp/B0C73GGKHX?psc=1&ref=ppx_yo2ov_dt_b_product_details) |
 | 1        | Current Sensor                                               | [Gravity: Analog AC Current Sensor (20A) - DFRobot](https://www.dfrobot.com/product-1486.html)<br />[Gravity Analog Ac Current Sensor - SEN0211 (electromaker.io)](https://www.electromaker.io/shop/product/gravity-analog-ac-current-sensor)<br />[Amazon.com: Gravity: Analog AC Current Sensor (20A) - AC Current Signal Conversion Module and Open Type AC Transformer Probe Included - Non-contact Measurement : Industrial & Scientific](https://www.amazon.com/Gravity-Conversion-Transformer-Non-contact-Measurement/dp/B0834T9T7M/ref=sr_1_1?crid=37R01SIE984NI&dib=eyJ2IjoiMSJ9.pQZF_7XWzg2r8BOWxppsEw.fQGJyUnb38UZE81QAZmL_Af6NJ-5q_uVt92-crwQPYU&dib_tag=se&keywords=SEN0211&qid=1711410513&sprefix=sen0211%2Caps%2C100&sr=8-1&th=1) |
-| 1        | SD Card Reader                                               | [Amazon.com: HiLetgo 5pcs Micro SD TF Card Adater Reader Module 6Pin SPI Interface Driver Module with chip Level Conversion for Arduino UNO R3 MEGA 2560 Due : Electronics](https://www.amazon.com/dp/B07BJ2P6X6?psc=1&ref=ppx_yo2ov_dt_b_product_details) |
+| 1        | SD Card Reader                                               | [Amazon.com: UMLIFE Micro SD SDHC TF Card Adapter Reader Module with SPI Interface Level Conversion Chip Compatible with Arduino Raspberry PI 10pcs : Electronics](https://www.amazon.com/gp/product/B0989SM146/ref=ppx_yo_dt_b_asin_title_o00_s00?ie=UTF8&psc=1) |
+| 1        | SD Card (32GB or less)                                       | [Amazon](https://www.amazon.com/), [DigiKey](https://www.digikey.com/), or [Mouser Electronics](https://www.mouser.com/) |
 | 1        | Real-Time Clock w/EEPROM Memory                              | [Amazon.com: HiLetgo 5pcs DS3231 AT24C32 Clock Module Real Time Clock Module IIC RTC Module for Arduino Without Battery : Industrial & Scientific](https://www.amazon.com/dp/B00LX3V7F0?psc=1&ref=ppx_yo2ov_dt_b_product_details) |
+| 1        | CR2032 Battery                                               | [Amazon](https://www.amazon.com/), [DigiKey](https://www.digikey.com/), or [Mouser Electronics](https://www.mouser.com/) |
 | 1        | EEPROM Memory (only necessary if the real-time clock module does not include memory) | [EC Buying 5Pcs AT24C02 Module I2C IIC Interface EEPROM Memory Module Intelligent Car Accessories with Dupont Wire at Amazon.com](https://www.amazon.com/dp/B0C73CRV1G?ref=ppx_yo2ov_dt_b_product_details&th=1) |
 | 1        | Display (optional)                                           | [Amazon.com: Frienda 10 Pieces I2C OLED Display Module OLED Display Screen Driver IIC I2C Tabellone Seriale con Display Auto-Luminoso Compatible with Arduino/Raspberry PI : Electronics](https://www.amazon.com/dp/B08VNRH5HR?ref=ppx_yo2ov_dt_b_product_details&th=1) |
 | 1        | USB Wall Charger                                             | [Amazon.com: (3 Pack) USB C Wall Charger, Dual Port PD Power Adapter Fast Charging Block for iPhone 15/15 Pro/15 Pro Max/15 Plus/14/13/12/11,X, Pad, Google Pixel, Samsung Galaxy and More : Cell Phones & Accessories](https://www.amazon.com/dp/B0BDWYL28S?ref=ppx_yo2ov_dt_b_product_details&th=1) |
@@ -70,6 +72,12 @@ If you are new to the Arduino/ESP32 world, blink is the classic "Hello World!" p
 
 I my case, I used the breakout board and an Ideal Lever Wire Connector to connect the LED and 220 ohm resistor without the need to solder.
 
+| ESP32   | LED         | 220 ohm Resistor |
+| ------- | ----------- | ---------------- |
+| GND (-) | Cathode (-) |                  |
+|         | Anode (+)   | Lead             |
+| GPIO 4  |             | Opposite Lead    |
+
 ![Blink Photo](./images/BlinkPhoto.jpg)
 
 The blink sketch is includes in this project in the folder labeled ```/Blink```.  With the ESP32 Development Board I chose there is no built in LED so I had to manually redefine the LED_BUILTIN constant in the code. In my case I used pin 4. If you are new to programming an Arduino/ESP32 I recommend starting by reading "[Getting Started with Arduino IDE 2](https://docs.arduino.cc/software/ide-v2/tutorials/getting-started-ide-v2/)". You can also search the internet for "Arduino blink" or "programming the Arduino" to find a great deal of articles and tutorials.
@@ -84,10 +92,17 @@ This exercise uses the same wired LED from the Blink exercise. You will again ne
 
 As part of this project I need to be able to see if the power is on. In particular, I want to monitor the pump timer, the air compressor pump timer, the high water alarm and the air compressor alarm.
 
- [![AC 220V Optocoupler Module](./images/AC220VOptocouplerModule.jpg)](https://www.amazon.com/HiLetgo-Optocoupler-Alternating-Current-Channel/dp/B0CHJLYY3D/ref=sr_1_4?crid=3NMY4ZOHAL63&keywords=220V%2BOptocoupler%2BModule&qid=1707616569&s=industrial&sprefix=220v%2Boptocoupler%2Bmodule%2Cindustrial%2C115&sr=1-4&th=1)
+![AC 220V Optocoupler Module](./images/AC220VOptocouplerModule.jpg)
 
 ![AC 220V Optocoupler Module Schematic](./images/AC220VOptocouplerModuleSchematic.png)
+
 To do this I will use a simple [220V optocoupler module](https://www.amazon.com/HiLetgo-Optocoupler-Alternating-Current-Channel/dp/B0CHJLYY3D/ref=sr_1_4?crid=3NMY4ZOHAL63&keywords=220V%2BOptocoupler%2BModule&qid=1707616569&s=industrial&sprefix=220v%2Boptocoupler%2Bmodule%2Cindustrial%2C115&sr=1-4&th=1) (pictured above) which can be connected to the hot 120V lead ('L' for load, typically a black wire) of any of the items I previously listed and common ('N' for neutral, typically a white wire) on one side of the module. On the other side I connect the module to 3.3 voltage (VCC - positive voltage), ground (GND - ground, negative) and one of the GPOI (General-Purpose Input-Output) pins of the ESP32 (OUT - signal). You can learn more about the ESP32 GPOI pins at [ESP32 Pinout Reference: Which GPIO pins should you use? | Random Nerd Tutorials](https://randomnerdtutorials.com/esp32-pinout-reference-gpios/). Below is a diagram for a test circuit. 
+
+| 220V optocoupler module | ESP32       |
+| ----------------------- | ----------- |
+| VCC                     | 3V3 (+3.3V) |
+| GND                     | GND (-)     |
+| OUT (signal)            | GPIO 34     |
 
 ![Is the Power On Schematic](./images/IsThePowerOnSchematic.png)
 
@@ -105,19 +120,48 @@ While determining if the pump has been turned on by either the pump timer or the
 
 Now I could loop back a wire from the low water float/pump connection and wire it to a 220V optocoupler module to determine if the pump was running, but depending on the distance of the control box from the pump this could be extremely difficult. Also, since the low water float is most likely wired directly to one of the pump leads it is also most likely connected with a special water proof heat shrink connector which complicates things and making this project more complicating is not an objective.
 
-[![Gravity Analog AC Current Sensor (20A)](./images/GravityAnalogACCurrentSensor(20A).jpg)](https://www.dfrobot.com/product-1486.html) 
+![Gravity Analog AC Current Sensor (20A)](./images/GravityAnalogACCurrentSensor(20A).jpg)
 
 Using a current sensor that can be easily clipped around the power lead leaving the control box is much easier.  For this reason I chose the [Gravity 20A Analog AC Current Sensor from DFRobot](https://www.dfrobot.com/product-1486.html). I did originally look at using a cheaper current sensor based on the ZMCT103C, but after several hours of trying to get a reading, the fact that it had a 5A maximum, requires 5V to power and did not easily clip on to a wire I moved on to this sensor.
 
 The DFRobot current sensor is easy to clip on to a wire, connect to the ESP32 and the example code was easy to implement with only one hitch discovering that the ESP32 12 bit analog requires you divide by 4096 verses 1024. In the photo below the sensor is connect with the positive lead (+) connected to the ESP32 3.3V (3V3), the negative lead (-) to ground (GND), the signal (A) connected to GPIO pin 35 and the AC transformer probe clipped on to one power lead.
 
+| Gravity 20A Analog AC Current Sensor from DFRobot | ESP32       |
+| ------------------------------------------------- | ----------- |
+| + (positive)                                      | 3V3 (+3.3V) |
+| - (negative)                                      | GND         |
+| A (Amperage signal)                               | GPIO 35     |
+
 ![Is The Pump Running](./images/IsThePumpRunning.jpg)
 
-The code can be found in the ```/IsThePumpRunning``` folder and is based off of the vendors example code. The LED will blink to indicate activity and the amperage will be displayed on the serial port about once every second. As before you will need to change the ```LED_BUILTIN``` constant if you use a pin other than GPIO 4.  You will also need to change the ```AC_CURRENT_SENSOR``` constant if you us a GPIO pin other than 35.
+The code can be found in the ```/IsThePumpRunning``` folder and is based off of the [vendors example code](https://wiki.dfrobot.com/Gravity_Analog_AC_Current_Sensor__SKU_SEN0211_). The LED will blink to indicate activity and the amperage will be displayed on the serial port about once every second. As before you will need to change the ```LED_BUILTIN``` constant if you use a pin other than GPIO 4.  You will also need to change the ```AC_CURRENT_SENSOR``` constant if you us a GPIO pin other than 35.
 
 ### Where is my Data (SD Card Reader)
 
-*** This project is a work in progress. Please click the "Watch" button so you get notification on issues, discussions and pull request in GitHub. If you find a bug, please open an issue. If you have a question or comment please start a discussion. If you like what you see click the "Star" button. And please return in the future to see our progress.*
+Later in this project we will look at logging data. To do this we will use an SD card. SD cards can store large amounts of data in a file format that can be read by any personal computer. The [SD card reader](https://www.amazon.com/gp/product/B0989SM146/ref=ppx_yo_dt_b_asin_title_o00_s00?ie=UTF8&psc=1) I chose to use is operated on 3.3V and you should note the description on Amazon is incorrect about it operating on 5V. You will find other SD card reader modules that work on 5V which are compatible with 3.3V inputs. I simple chose the 3.3V version to stock my workbench with modules I could use with future ESP32 projects that might run off of batteries.
+
+![](.\images\MicroSDSDHCTFCardAdapterReaderModulewithSPIInterface.jpg)
+
+The SD card reader module communicates using SPI communication protocol. You can connect it to the ESP32 using the default SPI pins.
+
+| SD Card Reader | ESP32       |
+| -------------- | ----------- |
+| 3V3            | 3V3 (+3.3V) |
+| GND            | GND (-)     |
+| CS             | GPIO 5      |
+| MOSI           | GPIO 23     |
+| CLK            | GPIO 18     |
+| MISO           | GPIO 19     |
+
+![](.\images\WhereIsMyData.jpg)
+
+To test the module you will first want to format the micro SD card using your personal computer. Most laptops have an SD card slot you can use with an micro SD card adaptor or you may need to purchase a USB SD card reader. On a Windows machine you will open file manager, select the card and format it as FAT32.
+
+The test code can be found in the ```/WhereIsMyData``` folder and is pulled from the ESP32 SD example code ```SD_Test``` with the ```SD_CS``` set to GPIO pin 5. The following are two good tutorials on using SD card readers with the ESP32.
+
+[ESP32: Guide for MicroSD Card Module Arduino | Random Nerd Tutorials](https://randomnerdtutorials.com/esp32-microsd-card-arduino/)
+
+[In-Depth Tutorial to Interface Micro SD Card Module with Arduino (lastminuteengineers.com)](https://lastminuteengineers.com/arduino-micro-sd-card-module-tutorial/)
 
 
 ### What Time is it? (RTS DS3231)
