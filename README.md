@@ -98,7 +98,7 @@ As part of this project I need to be able to see if the power is on. In particul
 
 To do this I will use a simple [220V optocoupler module](https://www.amazon.com/HiLetgo-Optocoupler-Alternating-Current-Channel/dp/B0CHJLYY3D/ref=sr_1_4?crid=3NMY4ZOHAL63&keywords=220V%2BOptocoupler%2BModule&qid=1707616569&s=industrial&sprefix=220v%2Boptocoupler%2Bmodule%2Cindustrial%2C115&sr=1-4&th=1) (pictured above) which can be connected to the hot 120V lead ('L' for load, typically a black wire) of any of the items I previously listed and common ('N' for neutral, typically a white wire) on one side of the module. On the other side I connect the module to 3.3 voltage (VCC - positive voltage), ground (GND - ground, negative) and one of the GPOI (General-Purpose Input-Output) pins of the ESP32 (OUT - signal). You can learn more about the ESP32 GPOI pins at [ESP32 Pinout Reference: Which GPIO pins should you use? | Random Nerd Tutorials](https://randomnerdtutorials.com/esp32-pinout-reference-gpios/). Below is a diagram for a test circuit. 
 
-| 220V optocoupler module | ESP32       |
+| 220V Optocoupler Module | ESP32       |
 | ----------------------- | ----------- |
 | VCC                     | 3V3 (+3.3V) |
 | GND                     | GND (-)     |
@@ -166,7 +166,22 @@ The test code can be found in the ```/WhereIsMyData``` folder and is pulled from
 
 ### What Time is it? (RTS DS3231)
 
-*** This project is a work in progress. Please click the "Watch" button so you get notification on issues, discussions and pull request in GitHub. If you find a bug, please open an issue. If you have a question or comment please start a discussion. If you like what you see click the "Star" button. And please return in the future to see our progress.*
+As part of data logging and determining if the pump timer is correctly set, we need to know what time it is. To do this we will use a real-time clock module (RTC) with the DS3231 RTC chip and an AT24C32 EEPROM chip.
+
+![](.\images\DS3231AT24C32ClockModuleRealTimeClockModuleIICRTCModule.jpg)
+
+The RTC module communicates using the I2C interface for which the ESP32 has two build in IC2 controllers. The DS3231S RTC chip’s fixed I2C address is 0x68.
+
+| RTC module | ESP32             |
+| ---------- | ----------------- |
+| GND        | GND (-)           |
+| 3V3        | 3V3 (+3.3V)       |
+| SDA        | GPIO 21 (I2C SDA) |
+| SCL        | GPIO 22 (I2C SCL) |
+
+![](.\images\WhatTimeIsIt.jpg)
+
+The test code can be found in the ```/WhatTimeIsIt``` folder and is pulled from the article [In-Depth: Interface DS3231 Precision RTC Module with Arduino (lastminuteengineers.com)](https://lastminuteengineers.com/ds3231-rtc-arduino-tutorial/). You will also need to load the [uRTCLib by Naguissa](https://github.com/Naguissa/uRTCLib). The code can be used to set the chips time and then display the current time. Read the comments in the code for setting the current time.
 
 
 ### Don't Let me Forget (AT24C32)
