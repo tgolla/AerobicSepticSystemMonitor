@@ -138,7 +138,7 @@ The code can be found in the ```/IsThePumpRunning``` folder and is based off of 
 
 ### Where is my Data (SD Card Reader)
 
-Later in this project we will look at logging data. To do this we will use an SD card. SD cards can store large amounts of data in a file format that can be read by any personal computer. The [SD card reader](https://www.amazon.com/gp/product/B0989SM146/ref=ppx_yo_dt_b_asin_title_o00_s00?ie=UTF8&psc=1) I chose to use is operated on 3.3V and you should note the description on Amazon is incorrect about it operating on 5V. You will find other SD card reader modules that work on 5V which are compatible with 3.3V inputs. I simple chose the 3.3V version to stock my workbench with modules I could use with future ESP32 projects that might run off of batteries.
+Later in this project I will look at logging data. To do this I will use an SD card. SD cards can store large amounts of data in a file format that can be read by any personal computer. The [SD card reader](https://www.amazon.com/gp/product/B0989SM146/ref=ppx_yo_dt_b_asin_title_o00_s00?ie=UTF8&psc=1) I chose to use is operated on 3.3V and you should note the description on Amazon is incorrect about it operating on 5V. You will find other SD card reader modules that work on 5V which are compatible with 3.3V inputs. I simple chose the 3.3V version to stock my workbench with modules I could use with future ESP32 projects that might run off of batteries.
 
 ![](.\images\MicroSDSDHCTFCardAdapterReaderModulewithSPIInterface.jpg)
 
@@ -166,7 +166,7 @@ The test code can be found in the ```/WhereIsMyData``` folder and is pulled from
 
 ### What Time is it? (RTS DS3231)
 
-As part of data logging and determining if the pump timer is correctly set, we need to know what time it is. To do this we will use a real-time clock module (RTC) with the DS3231 RTC chip and an AT24C32 EEPROM chip.
+As part of data logging and determining if the pump timer is correctly set, I need to know what time it is. To do this I will use a real-time clock module (RTC) with the DS3231 RTC chip and an AT24C32 EEPROM chip.
 
 ![](.\images\DS3231AT24C32ClockModuleRealTimeClockModuleIICRTCModule.jpg)
 
@@ -186,7 +186,9 @@ The test code can be found in the ```/WhatTimeIsIt``` folder and is pulled from 
 
 ### Don't Let me Forget (AT24C32)
 
-*** This project is a work in progress. Please click the "Watch" button so you get notification on issues, discussions and pull request in GitHub. If you find a bug, please open an issue. If you have a question or comment please start a discussion. If you like what you see click the "Star" button. And please return in the future to see our progress.*
+One of the nice tins about the real-time clock module (RTC) is that in addition to the DS3231 RTC chip, it also has an AT24C32 EEPROM chip which can hold 32K of information even when the power is off. For this project I use this memory to store settings like during what time should the pump be on, the Wi-Fi SSID and password and user names, passwords and roles.
+
+The test code can be found in the ```/DontLetMeForget``` folder and is also pulled from the article [In-Depth: Interface DS3231 Precision RTC Module with Arduino (lastminuteengineers.com)](https://lastminuteengineers.com/ds3231-rtc-arduino-tutorial/). You will also need to load the [uEEPROMLib by Naguissa](https://github.com/Naguissa/uEEPROMLib). The code can writes an integer, float, character, and string to the 24C32 EEPROM and then reads them back. 
 
 
 ### Show me (OLED Display)
