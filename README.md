@@ -184,14 +184,14 @@ The RTC module communicates using the I2C interface for which the ESP32 has two 
 The test code can be found in the ```/WhatTimeIsIt``` folder and is pulled from the article [In-Depth: Interface DS3231 Precision RTC Module with Arduino (lastminuteengineers.com)](https://lastminuteengineers.com/ds3231-rtc-arduino-tutorial/). You will also need to load the [uRTCLib by Naguissa](https://github.com/Naguissa/uRTCLib). The code can be used to set the chips time and then display the current time. Read the comments in the code for setting the current time.
 
 
-### Don't Let me Forget (AT24C32)
+### Don't Let Me Forget (AT24C32)
 
-One of the nice tins about the real-time clock module (RTC) is that in addition to the DS3231 RTC chip, it also has an AT24C32 EEPROM chip which can hold 32K of information even when the power is off. For this project I use this memory to store settings like during what time should the pump be on, the Wi-Fi SSID and password and user names, passwords and roles.
+One of the nice tins about the real-time clock module (RTC) is that in addition to the DS3231 RTC chip, it also has an AT24C32 EEPROM chip which can hold 32K of information even when the power is off. For this project I will use this memory to store settings like, during what time should the pump be on, the Wi-Fi SSID and password and user names, passwords and roles.
 
-The test code can be found in the ```/DontLetMeForget``` folder and is also pulled from the article [In-Depth: Interface DS3231 Precision RTC Module with Arduino (lastminuteengineers.com)](https://lastminuteengineers.com/ds3231-rtc-arduino-tutorial/). You will also need to load the [uEEPROMLib by Naguissa](https://github.com/Naguissa/uEEPROMLib). The code can writes an integer, float, character, and string to the 24C32 EEPROM and then reads them back. 
+The test code can be found in the ```/DontLetMeForget``` folder and is also pulled from the article [In-Depth: Interface DS3231 Precision RTC Module with Arduino (lastminuteengineers.com)](https://lastminuteengineers.com/ds3231-rtc-arduino-tutorial/). You will also need to load the [uEEPROMLib by Naguissa](https://github.com/Naguissa/uEEPROMLib). The code writes an integer, float, character, and string to the 24C32 EEPROM and then reads them back. 
 
 
-### Show me (OLED Display)
+### Show Me (OLED Display)
 
 *** This project is a work in progress. Please click the "Watch" button so you get notification on issues, discussions and pull request in GitHub. If you find a bug, please open an issue. If you have a question or comment please start a discussion. If you like what you see click the "Star" button. And please return in the future to see our progress.* 
 
