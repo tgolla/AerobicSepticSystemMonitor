@@ -181,19 +181,34 @@ The RTC module communicates using the I2C interface for which the ESP32 has two 
 
 ![](.\images\WhatTimeIsIt.jpg)
 
-The test code can be found in the ```/WhatTimeIsIt``` folder and is pulled from the article [In-Depth: Interface DS3231 Precision RTC Module with Arduino (lastminuteengineers.com)](https://lastminuteengineers.com/ds3231-rtc-arduino-tutorial/). You will also need to load the [uRTCLib by Naguissa](https://github.com/Naguissa/uRTCLib). The code can be used to set the chips time and then display the current time. Read the comments in the code for setting the current time.
+The test code can be found in the ```/WhatTimeIsIt``` folder and is pulled from the article [In-Depth: Interface DS3231 Precision RTC Module with Arduino (lastminuteengineers.com)](https://lastminuteengineers.com/ds3231-rtc-arduino-tutorial/). You will also need to load the [uRTCLib by Naguissa](https://github.com/Naguissa/uRTCLib) library. The code can be used to set the chips time and then display the current time. Read the comments in the code for setting the current time.
 
 
 ### Don't Let Me Forget (AT24C32)
 
 One of the nice tins about the real-time clock module (RTC) is that in addition to the DS3231 RTC chip, it also has an AT24C32 EEPROM chip which can hold 32K of information even when the power is off. For this project I will use this memory to store settings like, during what time should the pump be on, the Wi-Fi SSID and password and user names, passwords and roles.
 
-The test code can be found in the ```/DontLetMeForget``` folder and is also pulled from the article [In-Depth: Interface DS3231 Precision RTC Module with Arduino (lastminuteengineers.com)](https://lastminuteengineers.com/ds3231-rtc-arduino-tutorial/). You will also need to load the [uEEPROMLib by Naguissa](https://github.com/Naguissa/uEEPROMLib). The code writes an integer, float, character, and string to the 24C32 EEPROM and then reads them back. 
+The test code can be found in the ```/DontLetMeForget``` folder and is also pulled from the article [In-Depth: Interface DS3231 Precision RTC Module with Arduino (lastminuteengineers.com)](https://lastminuteengineers.com/ds3231-rtc-arduino-tutorial/). You will also need to load the [uEEPROMLib by Naguissa](https://github.com/Naguissa/uEEPROMLib) library. The code writes an integer, float, character, and string to the 24C32 EEPROM and then reads them back. 
 
 
 ### Show Me (OLED Display)
 
-*** This project is a work in progress. Please click the "Watch" button so you get notification on issues, discussions and pull request in GitHub. If you find a bug, please open an issue. If you have a question or comment please start a discussion. If you like what you see click the "Star" button. And please return in the future to see our progress.* 
+The last module to look at is an SSD1306 OLED 0.96 inch display with 128×64 pixels with an I2C interface. This module can be optional, but I added it because I'm not worked with one of these and I thought it would be useful to have some local visual feedback.
+
+![](.\images\I2COLEDDisplayModule.jpg)
+
+Just like the RTC and EEPROM the display connects through the I2C interface. One thing to note is that while the silk screen printing on the back of the module indicates an I2C address of 0x78, the correct address 0x3C.
+
+| OLED module | ESP32             |
+| ----------- | ----------------- |
+| GND         | GND (-)           |
+| VCC         | 3V3 (+3.3V)       |
+| SCL         | GPIO 22 (I2C SCL) |
+| SDA         | GPIO 21 (I2C SDA) |
+
+![](.\images\ShowMe.jpg)
+
+The test code can be found in the ```/ShowMe``` folder and is pulled from the article [In-Depth: Interface OLED Graphic Display Module with Arduino (lastminuteengineers.com)](https://lastminuteengineers.com/oled-display-arduino-tutorial/). You will also need to load the [Adafruit SSD1306](https://github.com/adafruit/Adafruit_SSD1306),  [Adafruit GFX](https://github.com/adafruit/Adafruit-GFX-Library), and [Adafruit Bus IO](https://github.com/adafruit/Adafruit_BusIO) libraries. The code displays various different text messages on the display. You can find additional examples in the article [ESP32 OLED Display with Arduino IDE | Random Nerd Tutorials](https://randomnerdtutorials.com/esp32-ssd1306-oled-display-arduino-ide/).
 
 ## v1.0 The Basics
 
